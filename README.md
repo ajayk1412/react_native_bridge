@@ -7,6 +7,7 @@ A comprehensive comparison project demonstrating both **Legacy Bridge** and **Ne
 This project contains working examples of:
 
 1. **Legacy Bridge** (Old Architecture)
+
    - Traditional ReactContextBaseJavaModule (Android)
    - RCTBridgeModule pattern (iOS)
    - JSON-based communication
@@ -21,6 +22,7 @@ This project contains working examples of:
 ## 📱 Demo App Features
 
 The app provides an interactive comparison with:
+
 - Side-by-side implementations
 - Real-time performance comparison
 - Both architectures working simultaneously
@@ -60,6 +62,7 @@ MyNewProject/
 ## 🚀 Quick Start
 
 ### 1. Install Dependencies
+
 ```bash
 npm install
 ```
@@ -67,11 +70,13 @@ npm install
 ### 2. Run the App
 
 **iOS:**
+
 ```bash
 npm run ios
 ```
 
 **Android:**
+
 ```bash
 npm run android
 ```
@@ -87,6 +92,7 @@ npm run android
 ### Legacy Bridge (Old Architecture)
 
 #### Android (Kotlin)
+
 ```kotlin
 class CalculatorModule(reactContext: ReactApplicationContext) :
     ReactContextBaseJavaModule(reactContext) {
@@ -99,10 +105,11 @@ class CalculatorModule(reactContext: ReactApplicationContext) :
 ```
 
 #### iOS (Swift)
+
 ```swift
 @objc(CalculatorModule)
 class CalculatorModule: NSObject {
-  
+
   @objc
   func add(_ a: NSNumber, b: NSNumber,
            resolver: @escaping RCTPromiseResolveBlock,
@@ -113,6 +120,7 @@ class CalculatorModule: NSObject {
 ```
 
 #### JavaScript Usage
+
 ```typescript
 import { NativeModules } from 'react-native';
 const { CalculatorModule } = NativeModules;
@@ -125,17 +133,17 @@ const result = await CalculatorModule.add(5, 10);
 ### TurboModule (New Architecture)
 
 #### TypeScript Spec
+
 ```typescript
 export interface Spec extends TurboModule {
   add(a: number, b: number): Promise<number>;
 }
 
-export default TurboModuleRegistry.getEnforcing<Spec>(
-  'CalculatorTurboModule'
-);
+export default TurboModuleRegistry.getEnforcing<Spec>('CalculatorTurboModule');
 ```
 
 #### Android (Kotlin)
+
 ```kotlin
 @ReactModule(name = CalculatorTurboModule.NAME)
 class CalculatorTurboModule(reactContext: ReactApplicationContext) :
@@ -148,10 +156,11 @@ class CalculatorTurboModule(reactContext: ReactApplicationContext) :
 ```
 
 #### iOS (Swift)
+
 ```swift
 @objc(CalculatorTurboModule)
 class CalculatorTurboModule: NSObject {
-  
+
   @objc
   func add(_ a: NSNumber, b: NSNumber,
            resolver: @escaping RCTPromiseResolveBlock,
@@ -162,6 +171,7 @@ class CalculatorTurboModule: NSObject {
 ```
 
 #### JavaScript Usage (Type-Safe!)
+
 ```typescript
 import NativeCalculatorTurboModule from './src/specs/NativeCalculatorTurboModule';
 
@@ -173,13 +183,14 @@ const result: number = await NativeCalculatorTurboModule.add(5, 10);
 
 ## 📊 Performance Comparison
 
-| Operation | Legacy Bridge | TurboModule | Speedup |
-|-----------|--------------|-------------|---------|
-| Add (1000x) | ~80ms | ~5ms | **16x faster** |
-| Multiply (1000x) | ~75ms | ~5ms | **15x faster** |
-| Percentage (1000x) | ~85ms | ~6ms | **14x faster** |
+| Operation          | Legacy Bridge | TurboModule | Speedup        |
+| ------------------ | ------------- | ----------- | -------------- |
+| Add (1000x)        | ~80ms         | ~5ms        | **16x faster** |
+| Multiply (1000x)   | ~75ms         | ~5ms        | **15x faster** |
+| Percentage (1000x) | ~85ms         | ~6ms        | **14x faster** |
 
 **Why TurboModules are faster:**
+
 - ✅ No JSON serialization
 - ✅ Direct C++ JSI calls
 - ✅ Lazy loading
@@ -189,27 +200,29 @@ const result: number = await NativeCalculatorTurboModule.add(5, 10);
 
 ## 🆚 Architecture Comparison
 
-| Feature | Legacy Bridge | TurboModule |
-|---------|--------------|-------------|
-| **Communication** | JSON serialization | Direct JSI (C++) |
-| **Speed** | Slower | **16x faster** |
-| **Type Safety** | Runtime only | **Compile-time** |
-| **Loading** | All at startup | **Lazy (on-demand)** |
-| **Code Generation** | Manual | **Auto (CodeGen)** |
-| **IDE Support** | Limited | **Full auto-completion** |
-| **Base Class** | ReactContextBaseJavaModule | TurboModule Spec |
-| **Package Type** | ReactPackage | TurboReactPackage |
-| **React Native Version** | All versions | 0.68+ |
+| Feature                  | Legacy Bridge              | TurboModule              |
+| ------------------------ | -------------------------- | ------------------------ |
+| **Communication**        | JSON serialization         | Direct JSI (C++)         |
+| **Speed**                | Slower                     | **16x faster**           |
+| **Type Safety**          | Runtime only               | **Compile-time**         |
+| **Loading**              | All at startup             | **Lazy (on-demand)**     |
+| **Code Generation**      | Manual                     | **Auto (CodeGen)**       |
+| **IDE Support**          | Limited                    | **Full auto-completion** |
+| **Base Class**           | ReactContextBaseJavaModule | TurboModule Spec         |
+| **Package Type**         | ReactPackage               | TurboReactPackage        |
+| **React Native Version** | All versions               | 0.68+                    |
 
 ---
 
 ## 🎓 Documentation
 
 ### Quick References
+
 - **[QUICKSTART.md](./QUICKSTART.md)** - Get started in 5 minutes
 - **[ARCHITECTURE_COMPARISON.md](./ARCHITECTURE_COMPARISON.md)** - Deep dive into both architectures
 
 ### External Resources
+
 - [React Native Docs](https://reactnative.dev/)
 - [New Architecture](https://reactnative.dev/docs/the-new-architecture/landing-page)
 - [TurboModules](https://reactnative.dev/docs/the-new-architecture/pillars-turbomodules)
@@ -220,12 +233,14 @@ const result: number = await NativeCalculatorTurboModule.add(5, 10);
 ## 💡 When to Use Each
 
 ### Use Legacy Bridge When:
+
 - ✅ Supporting older React Native versions (<0.68)
 - ✅ Simple, infrequent native calls
 - ✅ Backward compatibility is required
 - ✅ Team is familiar with traditional patterns
 
 ### Use TurboModules When:
+
 - ✅ Building new apps (RN 0.68+)
 - ✅ Performance is critical
 - ✅ Want type safety and better developer experience
@@ -237,6 +252,7 @@ const result: number = await NativeCalculatorTurboModule.add(5, 10);
 ## 🔧 How CodeGen Works
 
 1. **Write TypeScript Spec**
+
    ```typescript
    export interface Spec extends TurboModule {
      myMethod(param: string): Promise<string>;
@@ -244,6 +260,7 @@ const result: number = await NativeCalculatorTurboModule.add(5, 10);
    ```
 
 2. **Configure package.json**
+
    ```json
    {
      "codegenConfig": {
@@ -255,11 +272,13 @@ const result: number = await NativeCalculatorTurboModule.add(5, 10);
    ```
 
 3. **Build**
+
    ```bash
    npm run android  # or npm run ios
    ```
 
 4. **CodeGen Auto-generates:**
+
    - Android: `NativeMyModuleSpec.java`
    - iOS: Protocol definitions + JSI bindings
 
@@ -279,14 +298,16 @@ const result: number = await NativeCalculatorTurboModule.add(5, 10);
 ### Module Not Found
 
 **Android:**
+
 ```bash
 cd android && ./gradlew clean
 npm run android
 ```
 
 **iOS:**
+
 ```bash
-cd ios && rm -rf build  
+cd ios && rm -rf build
 npm run ios
 ```
 
@@ -300,6 +321,7 @@ npm run ios
 ### Type Mismatches
 
 Make sure native implementation matches TypeScript spec exactly:
+
 ```typescript
 // TypeScript Spec
 add(a: number, b: number): Promise<number>
@@ -309,47 +331,3 @@ override fun add(a: Double, b: Double, promise: Promise)
 ```
 
 ---
-
-## 📝 License
-
-This is an educational example project demonstrating React Native bridge patterns.
-
----
-
-## 🙏 Acknowledgments
-
-Built with:
-- React Native 0.84.1
-- TypeScript
-- Kotlin (Android)
-- Swift (iOS)
-
----
-
-**Made with ❤️ to help developers understand React Native bridges**
-
----
-
-## 🎯 Learning Path
-
-1. **Day 1: Legacy Bridge**
-   - Read Legacy examples
-   - Understand JSON serialization
-   - Try the blue buttons in the app
-
-2. **Day 2: TurboModules**
-   - Read TypeScript spec
-   - Understand CodeGen
-   - Try the purple buttons in the app
-
-3. **Day 3: Comparison**
-   - Read `ARCHITECTURE_COMPARISON.md`
-   - Compare performance
-   - Understand trade-offs
-
-4. **Day 4: Build Your Own**
-   - Create a new module
-   - Implement in both architectures
-   - Compare results
-
-Happy learning! 🚀
